@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair:  'Playfair Display', serif;
+  --font-inter:     'Inter', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-dancing:   'Dancing Script', cursive;
+
+  /* Messy Door palette */
+  --terra:    #C1440E;
+  --mustard:  #D4A017;
+  --cream:    #FDF6E3;
+  --burgundy: #6B1A2A;
+  --charcoal: #1E1A16;
+  --brown:    #3D2B1F;
+  --sand:     #E8D5A3;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--charcoal);
+  color: var(--cream);
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(193,68,14,0.35);
+  color: var(--cream);
+}
+
+/* ── Custom cursor: hide default on pointer devices ── */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+/* ── Scroll indicator line animation ── */
+@keyframes scrollLine {
+  0%   { transform: translateY(-100%); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+/* ── Ambient float ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float { animation: floatY 4s ease-in-out infinite; }
+
+/* ── Text shimmer for headings ── */
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--brown); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--terra), var(--mustard));
+  border-radius: 4px;
+}
+
+/* ── Utility glasses ── */
+.glass {
+  background: rgba(253,246,227,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(253,246,227,0.08);
+}
+
+.glass-dark {
+  background: rgba(30,26,22,0.75);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(212,160,23,0.18);
+}
+
+/* ── Gold gradient text ── */
+.text-messy-gold {
+  background: linear-gradient(135deg, #f4c842 0%, #D4A017 50%, #a07a10 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Terra gradient text ── */
+.text-messy-terra {
+  background: linear-gradient(135deg, #e8623a 0%, #C1440E 60%, #8b2d09 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Noise texture overlay (bohemian feel) ── */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+/* ── Decorative squiggle underline ── */
+.squiggle {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--terra);
+  text-underline-offset: 6px;
+}
+
+/* ── Bohemian divider ── */
+.boho-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--mustard);
+  opacity: 0.5;
+}
+.boho-divider::before,
+.boho-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mustard), transparent);
+}
+
+/* ── Image hover zoom ── */
+.img-hover { overflow: hidden; }
+.img-hover img {
+  transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+.img-hover:hover img { transform: scale(1.08); }
+
+/* ═══════════════════════════════════════════
+   PROFESSIONAL BUTTON SYSTEM
+   — no rounded-full, no emoji, no cartoon
+═══════════════════════════════════════════ */
+
+/* Primary: gold border + gold text on dark bg */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--mustard);
+  background: transparent;
+  color: var(--mustard);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.btn-primary:hover {
+  background: rgba(212,160,23,0.12);
+  border-color: rgba(212,160,23,0.8);
+}
+
+/* Solid gold fill */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--mustard);
+  background: var(--mustard);
+  color: #1E1A16;
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-gold:hover {
+  background: #c49214;
+  box-shadow: 0 4px 20px rgba(212,160,23,0.25);
+}
+
+/* Ghost: cream/white outline */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(253,246,227,0.2);
+  background: transparent;
+  color: rgba(253,246,227,0.75);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(253,246,227,0.45);
+  color: var(--cream);
+  background: rgba(253,246,227,0.04);
+}
+
+/* Platform pill — minimal, text-only with faint brand tint */
+.btn-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 6px;
+  background: rgba(253,246,227,0.04);
+  border: 1px solid rgba(253,246,227,0.12);
+  color: rgba(253,246,227,0.7);
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+.btn-platform:hover {
+  background: rgba(253,246,227,0.08);
+  border-color: rgba(253,246,227,0.25);
+  color: var(--cream);
+}
+
+/* Icon button — square/small, for social icons in footer */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid rgba(253,246,227,0.12);
+  background: transparent;
+  color: rgba(253,246,227,0.45);
+  transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+}
+.btn-icon:hover {
+  border-color: rgba(212,160,23,0.4);
+  color: var(--mustard);
+  background: rgba(212,160,23,0.06);
+}
+
+/* Legacy aliases — kept so nothing breaks */
+.btn-terra  { }
+.btn-outline-cream { }
+
+/* ── Floating label card ── */
+.boho-card {
+  background: rgba(61,43,31,0.6);
+  border: 1px solid rgba(212,160,23,0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  transition: all 0.4s ease;
+}
+.boho-card:hover {
+  border-color: rgba(193,68,14,0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(193,68,14,0.15);
+}
+
+/* ── Animated dots ── */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ── Input styles ── */
+input, textarea, select {
+  background: rgba(253,246,227,0.04);
+  border: 1px solid rgba(253,246,227,0.12);
+  color: var(--cream);
+  transition: all 0.35s ease;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: rgba(193,68,14,0.5);
+  background: rgba(253,246,227,0.07);
+  box-shadow: 0 0 0 3px rgba(193,68,14,0.1);
+}
+
+/* ── Menu tag badge ── */
+.menu-tag {
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
